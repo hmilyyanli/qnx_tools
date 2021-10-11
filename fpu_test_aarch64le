@@ -1,0 +1,52 @@
+
+fpu_test.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <main>:
+   0:	a9bd7bfd 	stp	x29, x30, [sp, #-48]!
+   4:	910003fd 	mov	x29, sp
+   8:	52a81680 	mov	w0, #0x40b40000            	// #1085538304
+   c:	b9001be0 	str	w0, [sp, #24]
+  10:	52a81680 	mov	w0, #0x40b40000            	// #1085538304
+  14:	b9001fe0 	str	w0, [sp, #28]
+  18:	bd401be1 	ldr	s1, [sp, #24]
+  1c:	bd401fe0 	ldr	s0, [sp, #28]
+  20:	1e202820 	fadd	s0, s1, s0
+  24:	bd0023e0 	str	s0, [sp, #32]
+  28:	bd401be1 	ldr	s1, [sp, #24]
+  2c:	bd401fe0 	ldr	s0, [sp, #28]
+  30:	1e203820 	fsub	s0, s1, s0
+  34:	bd0027e0 	str	s0, [sp, #36]
+  38:	bd401be1 	ldr	s1, [sp, #24]
+  3c:	bd401fe0 	ldr	s0, [sp, #28]
+  40:	1e200820 	fmul	s0, s1, s0
+  44:	bd002be0 	str	s0, [sp, #40]
+  48:	bd401fe0 	ldr	s0, [sp, #28]
+  4c:	bd401be1 	ldr	s1, [sp, #24]
+  50:	1e201820 	fdiv	s0, s1, s0
+  54:	bd002fe0 	str	s0, [sp, #44]
+  58:	bd4023e0 	ldr	s0, [sp, #32]
+  5c:	1e22c000 	fcvt	d0, s0
+  60:	90000000 	adrp	x0, 0 <main>
+  64:	91000000 	add	x0, x0, #0x0
+  68:	94000000 	bl	0 <printf>
+  6c:	bd4027e0 	ldr	s0, [sp, #36]
+  70:	1e22c000 	fcvt	d0, s0
+  74:	90000000 	adrp	x0, 0 <main>
+  78:	91000000 	add	x0, x0, #0x0
+  7c:	94000000 	bl	0 <printf>
+  80:	bd402be0 	ldr	s0, [sp, #40]
+  84:	1e22c000 	fcvt	d0, s0
+  88:	90000000 	adrp	x0, 0 <main>
+  8c:	91000000 	add	x0, x0, #0x0
+  90:	94000000 	bl	0 <printf>
+  94:	bd402fe0 	ldr	s0, [sp, #44]
+  98:	1e22c000 	fcvt	d0, s0
+  9c:	90000000 	adrp	x0, 0 <main>
+  a0:	91000000 	add	x0, x0, #0x0
+  a4:	94000000 	bl	0 <printf>
+  a8:	52800000 	mov	w0, #0x0                   	// #0
+  ac:	a8c37bfd 	ldp	x29, x30, [sp], #48
+  b0:	d65f03c0 	ret
