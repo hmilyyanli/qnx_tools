@@ -8,30 +8,35 @@
 #include <sys/mman.h>
 #include <pthread.h>
 #include <forksafe_mutex.h>
+#include <sys/neutrino.h>
 
 #ifdef __QNX__
 #define CMD_PATH "/proc/boot/ls"
 #else
 #define CMD_PATH "/bin/ls"
 #endif
-char *data;
-/*
- * this CNT magic number based on /proc/$pid/pmap provided informatio
- * CNT = heap start - share memory end
- */
-#define CNT 56129810432
-int cnt = 0;
+//char *data;
+static int cur;
+static intrspin_t lock;
+pthread_mutex_t plock = PTHREAD_MUTEX_INITIALIZER;
 
-forksafe_mutex_t lock = FORKSAFE_MUTEX_INITIALIZER;
 void* sub_thread(void* args)
 {
+	ThreadCtl( _NTO_TCTL_IO, 0 );
 	while(1){
-	forksafe_mutex_lock(&lock);
-	printf("---- sub thread lock ---\n");
+#if 0		
+	InterruptLock(&lock);
+	cur++;
+	//printf("sub cur:%d\n",cur);
 	sleep(1);
-	forksafe_mutex_unlock(&lock);
-	printf("---- sub thread unlock ---\n");
-	sleep(1);
+	InterruptUnlock(&lock);
+#endif
+		pthread_mutex_lock(&plock);
+		cur++;
+		printf("sub cur:%d\n",cur);
+		sleep(1);
+		 pthread_mutex_unlock(&plock);	
+		//InterruptUnlock(&lock);
 	}
 	pthread_exit(0);
 }
@@ -40,37 +45,16 @@ int main()
 	pid_t pid;
 	pthread_t ptid;
 	int status;
+	ThreadCtl( _NTO_TCTL_IO, 0 );
 	pthread_create(&ptid,NULL,sub_thread,NULL);
-	usleep(500);
 	while(1){
-		if( (pid=fork()) < 0 )
-        	{
-                	perror("fork failed\n");
-                	exit(1);
-        	}else if(pid ==0)
-        	{
-                	while(1){
-        			forksafe_mutex_lock(&lock);
-        			printf("---- child lock ---\n");
-        			sleep(1);
-        			forksafe_mutex_unlock(&lock);
-				printf("---- child unlock ---\n");
-        			sleep(1);        		
-			}
-
-        	}
-        	else {
-			printf("ID (parent) %d\n", getpid());
-                	while(1){
-                        forksafe_mutex_lock(&lock);
-                        printf("---- parent lock ---\n");
-                        sleep(1);
-                        forksafe_mutex_unlock(&lock);
-                        printf("---- parent unlock ---\n");
-                        sleep(1);
-                	}
-			//while(1);
-        	}
+		//InterruptLock(&lock);
+		pthread_mutex_lock(&plock);
+		//cur--;
+		printf("main cur:%d\n",cur);
+		//sleep(1);
+		pthread_mutex_unlock(&plock);
+		//InterruptUnlock(&lock);
 	}	
 	
 	

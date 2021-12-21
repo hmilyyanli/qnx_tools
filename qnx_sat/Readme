@@ -1,0 +1,23 @@
+QNX Neutrino System Analysis Toolkit
+generally it use TraceEvent() to communicat with kernel. by default, QNX provide
+1.  tracelogger to log the trace 
+2. traceprinter to interpret log
+
+examples as following:
+1. all_events
+demonstrates the capability of the trace module to capture huge amounts of data about the events.
+2. one_class
+gather all events from only one class, _NTO_TRACE_THREAD
+3. five_events
+gather specific classes of events, we'll refine our search even further and gather only five specific types of events from four classes.
+4. ker_calls
+This example shows not only filtering, but also the arguments intercepted by the instrumented kernel. In its base form, this program is similar to the one_class.c example that gathered only one class
+5. eh_simple - event handling simple
+n this example, we intercept two events from two different classes. Each event has an event handler attached to it; the event handlers are closing and opening the stream
+6. use_event_simple
+This example demonstrates the insertion of a user event into the event stream
+
+HowTo steps:
+1. one terminal: tracelogger -d1 -n 3 -f ker_calls.14.kev
+2. exec each example, like ./ker_calls -n 14
+3. parse the data: traceprinter -f ker_calls.14.kev
