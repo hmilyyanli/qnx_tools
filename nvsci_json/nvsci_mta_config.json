@@ -1,0 +1,31 @@
+{
+  "general":{
+       "version" : 1
+  },
+  "ipc":{
+       "local"  : "nvscisync_b_1",
+       "remote" : "nvscisync_b_0" 
+  },
+  "packet":{
+        "count" : 6
+  },
+  "elements":{
+     "RawBuf" : {
+          "type" : "CPU",
+          "userdata" : 1,
+          "size" : 123,
+          "aligment" : 4,
+          "BufAttr" : "NvSciBufAccessPerm_Readonly",
+          "sync" : "NvSciStreamElementMode_Asynchronous",
+          "Piggyback" : "false"
+      },
+      "ImageBuf" : {
+          "userdata" : 2,
+          "size" : 123,
+          "aligment" : 4,
+          "BufAttr" : "NvSciBufAccessPerm_Readonly",
+          "syncMode" : "NvSciStreamElementMode_Asynchronous",
+          "Piggyback" : "false"
+      }
+  }
+}
