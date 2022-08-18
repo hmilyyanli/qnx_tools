@@ -10,7 +10,7 @@ public:
 	    std::cout<< "default cons C..." << std::endl;
 	}
 	C(int a):i(a){std::cout<< "ctor C..." << std::endl;}
-#if 0
+#if 1
 	//copy .........
 	C(C const& a):i(a.i)
 	{
