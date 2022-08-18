@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1600" height="500" version="1.1"
+     id="DecoratorStream">
+  <defs>
+    <style>
+      .oop-class {}
+      .oop-method {}
+
+      .oop-level2-fading {
+        opacity: .1;
+        transition: .3s;
+      }
+      .oop-level2-fading:hover {
+        opacity: 1;
+      }
+
+      .oop-level3-fading {
+        opacity: .1;
+        transition: .3s;
+      }
+      .oop-level3-fading:hover {
+        opacity: 1;
+      }
+
+      g.light-blue-rect rect{
+        fill: blue;
+        fill-opacity: .2;
+        stroke: black;
+        stroke-width: 2;
+      }
+      g.very-light-blue-rect rect{
+        fill: blue;
+        fill-opacity: .1;
+        stroke: black;
+        stroke-width: 2;
+      }
+
+      g.white-circle circle {
+        stroke: black;
+        stroke-width: 3;
+        fill: white;
+      }
+
+      g.black-line line {
+        stroke: black;
+        stroke-width: 2;
+      }
+      g.dashed-line line {
+        stroke: black;
+        stroke-width: 2;
+        stroke-dasharray: 4;
+      }
+
+      g.black-path path {
+        stroke: black;
+        stroke-width: 2;
+        fill: white;
+      }
+
+
+      .normal-size {
+        font-size: 15pt;
+        font-family: Arial;
+      }
+      .horizontal-center {
+        transform: translate(30%, 1em);
+      }
+
+      .line2-one-third {
+        transform: translate(15%, 10em);
+      }
+      .line2-two-third {
+        transform: translate(30%, 10em);
+      }
+      .line2-three-third {
+        transform: translate(45%, 10em);
+      }
+      .line2-method-column {
+        transform: translate(73%, 11.5em);
+      }
+
+      .line3-first {
+        transform: translate(37%, 17em);
+      }
+      .line3-second {
+        transform: translate(53%, 17em);
+      }
+      .line3-method-column {
+        transform: translate(73%, 18.5em);
+      }
+    </style>
+  </defs>
+  <g class="oop-class light-blue-rect black-line normal-size horizontal-center">
+    <text y="1.0em">
+      <tspan x=".2em" dy="0em">Stream</tspan>
+      <tspan x=".2em" dy="1.5em">PutString()</tspan>
+      <tspan x=".2em" dy="1.2em">HandleBufferFull()</tspan>
+    </text>
+  </g>
+
+  <g class="oop-inheritance black-line black-path oop-level-1_2" />
+
+  <g class="oop-class light-blue-rect black-line normal-size line2-one-third">
+    <text y="1.0em">
+      <tspan x=".2em" dy="0em">MemoryStream</tspan>
+      <tspan x=".2em" dy="1.5em">HandleBufferFull()</tspan>
+    </text>
+  </g>
+  <g class="oop-class light-blue-rect black-line normal-size line2-two-third">
+    <text y="1.0em">
+      <tspan x=".2em" dy="0em">FileStream</tspan>
+      <tspan x=".2em" dy="1.5em">HandleBufferFull()</tspan>
+    </text>
+  </g>
+  <g class="oop-class light-blue-rect black-line normal-size line2-three-third">
+    <text y="1.0em">
+      <tspan x=".2em" dy="0em">StreamDecorator</tspan>
+      <tspan x=".2em" dy="1.5em">HandleBufferFull()</tspan>
+    </text>
+  </g>
+
+  <g class="oop-inheritance black-line black-path oop-level-2_3" />
+
+  <g class="oop-class light-blue-rect black-line normal-size line3-first">
+    <text y="1.0em">
+      <tspan x=".2em" dy="0em">ASCII7Stream</tspan>
+      <tspan x=".2em" dy="1.5em">HandleBufferFull()</tspan>
+    </text>
+  </g>
+  <g class="oop-class light-blue-rect black-line normal-size line3-second">
+    <text y="1.0em">
+      <tspan x=".2em" dy="0em">CompressingStream</tspan>
+      <tspan x=".2em" dy="1.5em">HandleBufferFull()</tspan>
+    </text>
+  </g>
+
+  <g class="oop-level2-fading">
+    <g class="oop-method very-light-blue-rect line2-method-column normal-size">
+      <text x=".2em" y="1.0em">
+        component->HandleBufferFull()
+      </text>
+    </g>
+    <g id="line2-method-connection" class="dashed-line white-circle" />
+  </g>
+
+  <g class="oop-level3-fading">
+    <g class="oop-method very-light-blue-rect line3-method-column normal-size">
+      <text y="1.0em">
+        <tspan x=".2em" dy="0em">compress data in buffer</tspan>
+        <tspan x=".2em" dy="1.5em">StreamDecorator::HandleBufferFull()</tspan>
+      </text>
+    </g>
+    <g id="line3-method-connection" class="dashed-line white-circle" />
+  </g>
+
+
+  <script>
+    //                         ============
+    //                         class PathPt
+    //                         ============
+
+    class PathPt{
+        constructor(x, y){
+            this.x = x;
+            this.y = y;
+        }
+        toString(){
+            return "" + this.x + "," + this.y;
+        }
+    };
+
+    let ExtraMargin = 10;
+
+    function MakeClassBox(Group){
+      // Create a visible box around the specified 'Group' with
+      // a line in between.
+
+      let BBox = Group.getBBox();
+
+      let Rect = document.createElementNS("http://www.w3.org/2000/svg",
+        "rect");
+      Rect.setAttribute("x", "0");
+      Rect.setAttribute("y", "0");
+      Rect.setAttribute("rx", ".5em");
+      Rect.setAttribute("ry", ".5em");
+      Rect.setAttribute("width", BBox.width + ExtraMargin);
+      Rect.setAttribute("height", BBox.height + ExtraMargin);
+      Group.appendChild(Rect);
+
+      let Line = document.createElementNS("http://www.w3.org/2000/svg",
+        "line");
+      Line.setAttribute("x1", "0");
+      Line.setAttribute("y1", "1.3em");
+      Line.setAttribute("x2", BBox.width + ExtraMargin);
+      Line.setAttribute("y2", "1.3em");
+      Group.appendChild(Line);
+    }
+    function MakeMethodBox(Group){
+      // Create a visible box around the specified 'Group'.
+
+      let BBox = Group.getBBox();
+
+      let Rect = document.createElementNS("http://www.w3.org/2000/svg",
+        "rect");
+      Rect.setAttribute("x", "0");
+      Rect.setAttribute("y", "0");
+      Rect.setAttribute("width", BBox.width + ExtraMargin);
+      Rect.setAttribute("height", BBox.height + ExtraMargin);
+      Group.appendChild(Rect);
+    }
+    function ConnectClassWithMethod(ConnectionGroupId, ClassName, MethodName){
+      let Group = document.getElementById(ConnectionGroupId);
+      let Class = document.getElementsByClassName(ClassName)[0];
+      let Method = document.getElementsByClassName(MethodName)[0];
+
+      let ClassRect = Class.getBoundingClientRect();
+      let MethodRect = Method.getBoundingClientRect();
+
+      let Line = document.createElementNS("http://www.w3.org/2000/svg",
+        "line");
+      oneEm = parseFloat(getComputedStyle(Group).fontSize);
+      Line.setAttribute("x1", ClassRect.right);
+      Line.setAttribute("y1", MethodRect.top + oneEm);
+      Line.setAttribute("x2", MethodRect.left);
+      Line.setAttribute("y2", MethodRect.top + oneEm);
+      Group.appendChild(Line);
+
+      let Circle = document.createElementNS("http://www.w3.org/2000/svg",
+        "circle");
+      Circle.setAttribute("cx", ClassRect.right);
+      Circle.setAttribute("cy", MethodRect.top + oneEm);
+      Circle.setAttribute("r", ".35em");
+      Group.appendChild(Circle);
+    }
+
+    //                     =====================
+    //                     class InheritanceDrawer
+    //                     =====================
+
+    class InheritanceDrawer{
+        // CREATORS
+        constructor(InheritanceLevel, ParentId, ChildIds){
+            this.TopPt = this.Internal_GetLowerPt(ParentId);
+            this.LowPts = this.Internal_InitLowPts(ChildIds);
+            this.MiddleY = (this.TopPt.y + this.LowPts[0].y)/2.0;
+    
+            let Levels = document.getElementsByClassName(InheritanceLevel);
+            this.Level = Levels[0];
+        }
+
+        // MANIPULATORS
+        Internal_GetLowerPt(Id){
+            let Entity = document.getElementsByClassName(Id);
+            let BBox = Entity[0].getBoundingClientRect();
+            return {x: (BBox.left + BBox.right) / 2.0 , y: BBox.bottom };
+        }
+
+        Internal_GetUpperPt(Id){
+            let Entity = document.getElementsByClassName(Id);
+            let BBox = Entity[0].getBoundingClientRect();
+            return {x: (BBox.left + BBox.right) / 2.0 , y: BBox.top };
+        }
+
+        Internal_InitLowPts(Ids){
+            let Result = [];
+            let Idx = 0;
+            for(Idx = 0; Idx != Ids.length; ++Idx){
+                Result.push(this.Internal_GetUpperPt(Ids[Idx]));
+            }
+            return Result;
+        }
+
+        DrawLowerLines(){
+            let Idx = 0;
+            for(Idx = 0; Idx != this.LowPts.length; ++Idx){
+                let Line = document.createElementNS("http://www.w3.org/2000/svg",
+                    "line");
+                Line.setAttribute("x1", this.LowPts[Idx].x);
+                Line.setAttribute("y1", this.LowPts[Idx].y);
+                Line.setAttribute("x2", this.LowPts[Idx].x);
+                Line.setAttribute("y2", this.MiddleY);
+                this.Level.appendChild(Line);
+            }
+            let MiddleLine = document.createElementNS("http://www.w3.org/2000/svg",
+                "line");
+            let FirstPt = this.LowPts[0];
+            let LastPt = this.LowPts[this.LowPts.length - 1];
+            MiddleLine.setAttribute("x1", FirstPt.x);
+            MiddleLine.setAttribute("y1", this.MiddleY);
+            MiddleLine.setAttribute("x2", LastPt.x);
+            MiddleLine.setAttribute("y2", this.MiddleY);
+            this.Level.appendChild(MiddleLine);
+        }
+
+        DrawUpperLine(){
+            let UpperLine = document.createElementNS("http://www.w3.org/2000/svg",
+                "line");
+            UpperLine.setAttribute("x1", this.TopPt.x);
+            UpperLine.setAttribute("y1", this.TopPt.y);
+            UpperLine.setAttribute("x2", this.TopPt.x);
+            UpperLine.setAttribute("y2", this.MiddleY);
+            this.Level.appendChild(UpperLine);
+        }
+
+        DrawMiddleTriangle(){
+            let XOffset = 15.0;
+            let YOffset = 20.0;
+            let LowerRightCorner = new PathPt(this.TopPt.x + XOffset,
+                this.MiddleY);
+            let TopCorner = new PathPt(this.TopPt.x, this.MiddleY - YOffset);
+            let LowerLeftCorner = new PathPt(this.TopPt.x - XOffset,
+                this.MiddleY);
+            let Triangle = document.createElementNS("http://www.w3.org/2000/svg",
+                "path");
+            Triangle.setAttribute("d", "m " + LowerRightCorner +
+                " L " + TopCorner + " L " + LowerLeftCorner + " z");
+            this.Level.appendChild(Triangle);
+        }
+    };
+
+    function ShowInheritance(InheritanceLevel, ParentId, ChildIds){
+        let drawer = new InheritanceDrawer(InheritanceLevel, ParentId,
+            ChildIds);
+        drawer.DrawLowerLines();
+        drawer.DrawUpperLine();
+        drawer.DrawMiddleTriangle();
+    }
+
+    //                         ====
+    //                         main
+    //                         ====
+
+    let Idx = 0;
+
+    let AllClassRects = document.getElementsByClassName("oop-class");
+    for(Idx = 0; Idx != AllClassRects.length; ++Idx){
+      MakeClassBox(AllClassRects[Idx]);
+    }
+
+    let AllMethodRects = document.getElementsByClassName("oop-method");
+    for(Idx = 0; Idx != AllMethodRects.length; ++Idx){
+      MakeMethodBox(AllMethodRects[Idx]);
+    }
+
+    ShowInheritance("oop-level-1_2", "horizontal-center",
+        ["line2-one-third", "line2-two-third", "line2-three-third"]);
+    ShowInheritance("oop-level-2_3", "line2-three-third",
+        ["line3-first", "line3-second"]);
+
+    ConnectClassWithMethod("line2-method-connection", "line2-three-third",
+      "line2-method-column")
+    ConnectClassWithMethod("line3-method-connection", "line3-second",
+      "line3-method-column")
+  </script>
+</svg>

@@ -1,0 +1,1 @@
+In order to use this code, you need to download googletest and place it in a new folder "third_party". You will either need version 1.8.1 or to adjust the folder name in the CMakeLists.

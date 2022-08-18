@@ -1,0 +1,53 @@
+#include <initializer_list>
+#include <iostream>
+#include <numeric>
+
+//                         ===============
+//                         struct SomeData
+//                         ===============
+
+struct SomeData {
+  // DATA
+  int m_value;
+  double m_number;
+};
+
+//                         ==========
+//                         struct Tag
+//                         ==========
+
+struct Tag {};
+
+//                         ==============
+//                         class MoreData
+//                         ==============
+
+class MoreData {
+  // DATA
+  int m_value{};
+  double m_number{};
+
+public:
+  // CREATORS
+  explicit MoreData(int f_value = 0, double f_number = 0.0) noexcept
+      : m_value{f_value}, m_number{f_number} {}
+
+  explicit MoreData(Tag, ::std::initializer_list<int> list) noexcept
+      : m_value{::std::reduce(list.begin(), list.end())} {}
+
+  // MANIPULATORS
+  auto value() & -> int & { return this->m_value; }
+
+  // ACCESSORS
+  auto value() const & -> int { return this->m_value; }
+};
+
+auto main() -> int {
+  // int i1 = 10.3;
+  // int i2(10.5);
+  // int i3{-3 + 2U}; // good
+
+  // SomeData sd{10.3, 3};
+  MoreData md{1, 2};
+  ::std::cout << md.value() << "\n";
+}
