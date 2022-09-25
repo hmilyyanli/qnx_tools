@@ -117,6 +117,10 @@ Use a static variable inside a function or method to archive a similar effect:
 
 Full example will be shown in the next Daily C++.
 
+## build
+* generally it will coredump, please debug with 'cmake -DCMAKE_BUILD_TYPE=Debug ..' to debug it
+  the reason is std::cout and NiftyCounterGuard two static objects, don't know which create first
+
 ## Literature
 
 * https://isocpp.org/wiki/faq/ctors#static-init-order
