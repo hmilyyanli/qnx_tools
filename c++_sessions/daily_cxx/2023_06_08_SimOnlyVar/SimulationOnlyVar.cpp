@@ -106,5 +106,6 @@ int main()
 {
 	SimOnlyVar<uint32_t> m_mySimOnlyVar;
 	m_mySimOnlyVar = 7;
+    std::cout << "size " << sizeof(m_mySimOnlyVar) << std::endl;
 	return 0;
 }

@@ -5,6 +5,8 @@ project(move_and_embedded_part_2
     HOMEPAGE_URL "https://sourcecode.socialcoding.bosch.com/users/poh2lr/repos/reveal.js/browse?at=refs%2Fheads%2F2019-10-18_daily_cxx_6"
     LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 17)
+
 add_executable(${PROJECT_NAME} ${PROJECT_NAME}.m.cpp)
 
 enable_testing()

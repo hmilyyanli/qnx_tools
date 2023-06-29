@@ -116,11 +116,70 @@ void demoCopyElision()
 	A a4 = createA_4();
 	cout << "a4.i " << a4.i <<endl;
 }
+
+// A class that contains a memory resource.
+class MemoryBlock
+{
+public:
+    MemoryBlock():pa(new int){}
+    MemoryBlock(MemoryBlock&& block)
+    {
+        cout << "MemoryBlock(const MemoryBlock&& block)" << endl;
+        if(this != &block)
+        {
+            pa=block.pa;
+            block.pa=NULL;
+        }
+    }
+    //move operator=
+    MemoryBlock& operator=(const MemoryBlock&& block)
+    {
+        cout << "MemoryBlock& operator=(const MemoryBlock&& block)" << endl;
+        if(this != &block)
+        {
+            *pa=*block.pa;
+             //pa=block.pa;
+             //block.pa=NULL;
+        }
+        return *this;
+    }
+    ~MemoryBlock(){
+        cout << "In ~MemoryBlock()" << endl;
+        if(pa != NULL)
+        {
+            free(pa);
+            pa=NULL;
+        }
+    }
+public:
+   // TODO: Add resources for the class here.
+   int* pa;
+};
+#if 0
+void f(const MemoryBlock&)
+{
+   cout << "In f(const MemoryBlock&). This version can't modify the parameter." << endl;
+}
+#endif
+//template <typename T>
+void f(MemoryBlock&& block)
+{
+   cout << "In f(MemoryBlock&&). This version can modify the parameter." << endl;
+   std::cout << "f val "<<*block.pa<<std::endl;
+
+}
+
 int main(int argc, char* argv[])
 {
 	//lifecycle();
 	//demoAssigment();
 	//demoCopyElision();
-	parameterAndReturn();
-	return 0;
+	//parameterAndReturn();
+    MemoryBlock block;
+    *block.pa = 10;
+    //MemoryBlock&& rb=std::move(block);
+    f(std::move(block));
+    //f(MemoryBlock());
+    std::cout << "val "<<*block.pa<<std::endl;
+    return 0;
 }

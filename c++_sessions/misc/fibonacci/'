@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+
+int fib1(int n)
+{
+    int t1 = 0, t2 = 1, nextTerm = 0;
+    if(n == 0) 
+    {
+                //cout << t1 << ", ";
+                //continue;
+                return t1;
+    }
+    if(n == 1) 
+    {
+                //cout << t2 << ", ";
+                //continue;
+                return t2;
+    }
+
+     for (int i = 2; i <= n; ++i) {
+           nextTerm = t1 + t2;
+           t1 = t2;
+           t2 = nextTerm;           
+           //cout << nextTerm << ", ";
+       }
+     return nextTerm;
+}
+
+int fib2(int n)
+{
+    if (n <= 1)
+        return n;
+    return fib2(n - 1) + fib2(n - 2);
+}
+
+int main() {
+    int n;
+    cout << "Enter the number of terms: ";
+    cin >> n;
+
+    cout << "Fibonacci Series: ";
+
+    for (int i = 0; i <= n; ++i) {
+        // Prints the first two terms.
+        cout << fib2(i) << ", ";
+    } 
+    cout << endl;
+    return 0;
+}

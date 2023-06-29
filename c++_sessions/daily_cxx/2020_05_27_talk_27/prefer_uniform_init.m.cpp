@@ -29,7 +29,7 @@ public:
       : m_value{f_value}, m_number{f_number} {}
 
   explicit MoreData(Tag, ::std::initializer_list<int> f_list) noexcept
-      : m_value{::std::reduce(f_list.begin(), f_list.end())} {}
+      : m_value{std::reduce(f_list.begin(), f_list.end())} {}
 
   // MANIPULATORS
   auto value() & -> int & { return this->m_value; }
@@ -41,7 +41,7 @@ public:
 auto main() -> int {
   int i3{-2U + 3};
   // MyData md{i3, 3.5};
-  // MoreData md{i3, 3.5};
-  MoreData md{{}, {1, 2}};
+  MoreData md{i3, 3.5};
+  // MoreData md{{}, {1, 2}};
   ::std::cout << md.value() << "\n";
 }

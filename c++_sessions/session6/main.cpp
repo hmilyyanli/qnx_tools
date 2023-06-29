@@ -2,9 +2,15 @@
 #include <iostream>
 
 using namespace std;
+
+A operator+(A const& a, A const& b )
+{
+	return A();
+}
 void lifecycle()
 {
 	cout << "begin lifecycle ..."<< endl;
+	{
 	cout << "A a1 " << endl;
 	A a1;
 	cout << "a1.i " << a1.i <<endl;
@@ -28,15 +34,27 @@ void lifecycle()
 	a4=std::move(a3);
 	cout << "a3.i " << a3.i <<endl;
         cout << "a4.i " << a4.i <<endl;
+	}
 	cout << "end of lifecycle!..."<<endl;
+}
+void demoAssigment()
+{
+	int a, b=1,c=2;
+	a=b+c;
+	//b+c = a;
+
+	A a1,a2;
+	A a3= a1+a2;
+	(a1+a2) = a3;
 }
 
 int main(int argc, char* argv[])
 {
+    //B b3;
+    B b1(10);
+    B b2=b1;
+    cout << "B val "<<b2.get()<<endl;
 	//lifecycle();
-    A a1;
-    B b1(a1);
-    cout << "addr a1" << &a1 << endl;
-    cout << "addr b.a1" << &b1.m_a << endl;
+	//demoAssigment();
 	return 0;
 }

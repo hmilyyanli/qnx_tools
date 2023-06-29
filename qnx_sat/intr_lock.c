@@ -7,8 +7,8 @@
 #include <spawn.h>
 #include <sys/mman.h>
 #include <pthread.h>
-#include <forksafe_mutex.h>
-#include <sys/neutrino.h>
+//#include <forksafe_mutex.h>
+//#include <sys/neutrino.h>
 
 #ifdef __QNX__
 #define CMD_PATH "/proc/boot/ls"
@@ -17,7 +17,7 @@
 #endif
 //char *data;
 static int cur;
-static intrspin_t lock;
+//static intrspin_t lock;
 pthread_mutex_t plock = PTHREAD_MUTEX_INITIALIZER;
 
 void* sub_thread(void* args)

@@ -47,3 +47,19 @@ To satisfy point 1. and 4. we expect that a talk
 [1]: https://www.fluentcpp.com/dailycpp/ "Daily C++"
 [2]: https://inside-docupedia.bosch.com/confluence/pages/viewpage.action?pageId=1060352608 "Docupedia"
 [3]: https://www.fluentcpp.com/dailycpp/ "Bosch YouTube"
+
+## Content
+2019_09_27_talk_1: Template Meta Programming (TMP)
+2019_09_30_talk_2: Template Meta Programming (TMP)
+2019_10_01_talk_3: Template Meta Programming (TMP)
+2019_10_14_talk_4: A polymorphic class should suppress copying (Cpp Core Guidelines)
+2019_10_21_talk_6: std::move(): 1. move rvalue will call class's move constractor. 2. use & and && in function defination of class to specify the lvalue and rvalue.
+2019_10_22_talk_7: recommanded c++ books
+2019_10_28_talk_8 & 2019_11_06_talk_9: internal state change design pattern
+2019_12_05_talk_14: static initialization order fiasco (SIOF) and howto break it.
+2020_05_08_talk_18: slice object copy, and use virtual assignment function seems can avoid this, see: https://stackoverflow.com/questions/274626/what-is-object-slicing for details
+/2020_05_19_talk_24: never mixed signed and unsigned type
+2020_05_27_talk_27: prefer uniform init format
+2020_07_02_talk_41: raii
+2023_04_19_talk_strong_types: it's recommanded to use strong types for detect errors earlier at compile time
+2023_06_08_SimOnlyVar: variable only used during simulation/debug, will skip the defination when release. the cost is empty class size(1 byte) occupied.

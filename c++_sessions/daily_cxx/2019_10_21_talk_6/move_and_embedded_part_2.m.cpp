@@ -48,9 +48,17 @@ void callee(Container<Printer> &f_lv, const Container<Printer> &f_clv,
   std::move(f_rv).giveUpResource();
 }
 
+ void callee2(Container<Printer> &f_lv, const Container<Printer> &f_clv) {
+   assert(f_lv.calc() == 1);
+   assert(f_clv.calc() == 2);
+   // f_rv.giveUpResource(); // compile error
+   // std::move(f_rv).giveUpResource();
+ }
+
 int main() {
   Container<Printer> c{std::in_place};
   assert(c.calc() == 1);
-  callee(c, c, std::move(c));
+  //callee(c, c, std::move(c));
+  callee2(c, c);
   std::cout << "Example finished\n";
 }

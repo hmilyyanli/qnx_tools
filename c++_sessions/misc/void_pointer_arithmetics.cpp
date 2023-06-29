@@ -39,12 +39,12 @@ int main(int argc, char* argv[])
 	//std::cout << "size is " << size << std::endl;
 	//int arr[SIZE];
 	//Test<size> m_t;
-	fn();
+	//fn();
 	int a[5];
 	void* pa=(void*)a;
-	std::cout << "addr: "<< pa << endl;
+	std::cout << "addr: "<< pa << std::endl;
 	pa +=1;
-	std::cout << "addr again: "<< pa << endl;
+	std::cout << "addr again: "<< pa << std::endl;
 #if 0
 	int count = 0;
 	while(1)
